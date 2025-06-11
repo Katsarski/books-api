@@ -1,9 +1,8 @@
 name: Tests
 
 on:
-  push:
-    branches: [main]
   pull_request:
+    types: [opened, synchronize, reopened]
     branches: [main]
 
 jobs:
@@ -35,6 +34,7 @@ jobs:
 
       - name: Run tests and generate HTML report
         run: |
+          mkdir -p reports
           pytest --html=reports/report.html --self-contained-html
 
       - name: Upload HTML report artifact
