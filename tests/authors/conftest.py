@@ -1,7 +1,10 @@
-import pytest
+"""
+Helpers and fixtures for creating and cleaning up author test data.
+"""
+
 import random
 import uuid
-from datetime import datetime
+import pytest
 from utils.request_handler import APIClient
 from config.config import BASE_URL
 
@@ -13,7 +16,7 @@ def generate_author_data():
     return generate_author_payload
 
 def generate_author_payload(author_id=None, overrides=None):
-    """Standalone payload generator for authors, independent of any fixture."""
+    """Creates and returns a fake author payload."""
     base_data = {
         "id": author_id or int(uuid.uuid4().int % 100000),
         "idBook": random.randint(1, 1000),
@@ -27,12 +30,13 @@ def generate_author_payload(author_id=None, overrides=None):
 @pytest.fixture
 def create_and_cleanup_author():
     """
-    Fixture to create an author given a payload and clean it up after the test.
-    Returns the response object from the POST call.
+    Creates an author and deletes it after the test.
+    Returns a function that takes a payload and posts it.
     """
     created_author_ids = []
 
     def _create_author(author_payload):
+        """Sends POST request to create an author and stores the ID for later cleanupp."""
         response = client.post("/Authors", data=author_payload)
         if response.status_code == 200:
             created_id = response.json().get("id", author_payload.get("id"))
@@ -47,7 +51,7 @@ def create_and_cleanup_author():
         assert del_resp.status_code == 200, f"Failed to delete author {author_id}"
 
 def next_available_author_id():
-    """Returns the next available author ID."""
+    """Fetches authors and returns the next available author ID."""
     response = client.get("/Authors")
     assert response.status_code == 200, f"Failed to fetch authors. Got {response.status_code}"
     authors = response.json()
