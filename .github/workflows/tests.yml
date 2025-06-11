@@ -34,6 +34,9 @@ jobs:
           pip install pytest pytest-html
 
       - name: Run tests and generate HTML report
+        env:
+          BASE_URL: ${{ vars.BASE_URL }}
+          DEFAULT_TIMEOUT: ${{ vars.DEFAULT_TIMEOUT }}
         run: |
           mkdir -p reports
           pytest --html=reports/report.html --self-contained-html
