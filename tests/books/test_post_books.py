@@ -1,4 +1,5 @@
 import pytest
+from tests.books.conftest import next_available_book_id
 from utils.request_handler import APIClient
 from config.config import BASE_URL
 from schemas.books_schema import books_object_schema
@@ -9,18 +10,20 @@ from utils.schema_validator import replace_placeholder, validate_single_object
 client = APIClient(BASE_URL)
 base_path = "/Books"
 
-def test_post_available_book_id(next_available_book_id, generate_book_data, create_and_cleanup_book):
-    book_payload = generate_book_data(book_id=next_available_book_id)
+def test_post_available_book_id(generate_book_data, create_and_cleanup_book):
+    next_book_id = next_available_book_id()
+    book_payload = generate_book_data(book_id=next_book_id)
     response = create_and_cleanup_book(book_payload)
-    assert response.json()['id'] == next_available_book_id
+    assert response.json()['id'] == next_book_id
     assert response.status_code == 200
     validate_single_object(response.json(), books_object_schema)
 
-def test_post_unavailable_book_id(next_available_book_id, generate_book_data, create_and_cleanup_book):
-    unavailable_book_id = next_available_book_id - 1
+@pytest.mark.xfail(strict=True, reason="Known bug where we get 200 OK when trying to create a book with an unavailable/already used id")
+def test_post_unavailable_book_id(generate_book_data, create_and_cleanup_book):
+    unavailable_book_id = next_available_book_id() - 1
     book_payload = generate_book_data(book_id=unavailable_book_id)
     response = create_and_cleanup_book(book_payload)
-    assert response.status_code in (400, 409), f"Expected 400 or 409 status code for book with unavailable ID but got {response.status_code}"
+    assert response.status_code == 400, f"Expected 400 status code for book with unavailable ID but got {response.status_code}"
 
 @pytest.mark.parametrize("property_name, value, expected_type", [
                         ("id", "not_a_number", "System.Int32"),
@@ -30,11 +33,12 @@ def test_post_unavailable_book_id(next_available_book_id, generate_book_data, cr
                         ("pageCount", "not_a_number", "System.Int32"),
                         ("publishDate", "not_a_number", "System.DateTime")
     ])
-def test_post_invalid_book_data(property_name, value, expected_type, next_available_book_id, generate_book_data, create_and_cleanup_book):
+def test_post_invalid_book_data(property_name, value, expected_type, generate_book_data, create_and_cleanup_book):
     overrides = {
         property_name: value
     }
-    book_payload = generate_book_data(book_id=next_available_book_id, overrides=overrides)
+    next_book_id = next_available_book_id()
+    book_payload = generate_book_data(book_id=next_book_id, overrides=overrides)
     response = create_and_cleanup_book(book_payload)
     assert response.status_code == 400
 

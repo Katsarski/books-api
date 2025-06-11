@@ -27,17 +27,6 @@ def generate_book_payload(book_id=None, overrides=None):
     return base_data
 
 @pytest.fixture
-def next_available_book_id():
-    """Returns the next available book ID."""
-    response = client.get("/Books")
-    assert response.status_code == 200, f"Failed to fetch books. Got {response.status_code}"
-    books = response.json()
-    if not books:
-        return 1
-    max_id = max(book.get("id", 0) for book in books if isinstance(book, dict))
-    return max_id + 1
-
-@pytest.fixture
 def create_and_cleanup_book():
     """
     Fixture to create a book given a payload and clean it up after the test.
@@ -58,3 +47,13 @@ def create_and_cleanup_book():
     for book_id in created_book_ids:
         del_resp = client.delete(f"/Books/{book_id}")
         assert del_resp.status_code == 200, f"Failed to delete book {book_id}"
+
+def next_available_book_id():
+    """Returns the next available book ID."""
+    response = client.get("/Books")
+    assert response.status_code == 200, f"Failed to fetch books. Got {response.status_code}"
+    books = response.json()
+    if not books:
+        return 1
+    max_id = max(book.get("id", 0) for book in books if isinstance(book, dict))
+    return max_id + 1
