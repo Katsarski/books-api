@@ -5,8 +5,10 @@ from schemas import *
 # We do this to avoid duplicating the validation logic for single and multiple objects but reuse a single schema
 #  for both cases.
 
-def validate_single_object(response_json, schema_name):
+def validate_single_object(response_json, schema_name, custom_validator=None):
     validate(instance=response_json, schema=schema_name)
+    if custom_validator:
+        custom_validator(response_json)
 
 def validate_multiple_objects(response_json, schema_name):
     assert isinstance(response_json, list), "Expected list of books"
