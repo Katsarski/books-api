@@ -1,4 +1,3 @@
-# utils/schema_validator.py
 import json
 from jsonschema import validate
 from schemas import *
