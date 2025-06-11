@@ -116,7 +116,7 @@ pytest --html=reports/report.html --self-contained-html
 
 ### 6. View Test Report
 
-Open `reports/report.html` in your browser.
+Open `reports/report.html` in your browser (Example report artifacts from latest run available [here](https://github.com/Katsarski/books-api/actions/runs/15594592829/artifacts/3308975899)), Tests workflow can be triggered manually from the actions tab to generate new set of report
 
 ---
 
