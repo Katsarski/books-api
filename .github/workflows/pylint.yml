@@ -1,0 +1,43 @@
+name: Lint
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pylint
+
+      - name: Run pylint and check score
+        run: |
+          pylint utils/ config/ schemas/ tests/ > pylint-report.txt || true
+          SCORE=$(tail -n 2 pylint-report.txt | grep 'Your code has been rated at' | awk '{print $7}' | cut -d'/' -f1)
+          echo "Pylint score: $SCORE"
+          PASSRATE=$(echo "$SCORE == 10.0" | bc -l)
+          if [ "$PASSRATE" -ne 1 ]; then
+            echo "Pylint score is below 10.0/10 (100%)."
+            cat pylint-report.txt
+            exit 1
+          fi
+
+      - name: Upload pylint report
+        uses: actions/upload-artifact@v4
+        with:
+          name: pylint-report
+          path: pylint-report.txt

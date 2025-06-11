@@ -1,3 +1,7 @@
+"""
+Schema for bad request error response.
+"""
+
 bad_request_schema = {
 "type": "object",
     "properties": {

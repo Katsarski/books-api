@@ -1,3 +1,7 @@
+"""
+Schema for checking books data format.
+"""
+
 books_object_schema = {
     "type": "object",
     "properties": {

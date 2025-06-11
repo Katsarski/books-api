@@ -1,3 +1,7 @@
+"""
+Schema for checking author data format.
+"""
+
 authors_object_schema = {
     "type": "object",
     "properties": {

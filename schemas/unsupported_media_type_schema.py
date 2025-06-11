@@ -1,3 +1,7 @@
+"""
+Schema for unsupported media type response.
+"""
+
 unsupported_media_type_schema = {
   "type": "object",
   "properties": {
