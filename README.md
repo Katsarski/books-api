@@ -19,6 +19,7 @@ This project provides API automationn test framework for the [FakeRestAPI](https
 - Create more tests related to the various available headers
 Further extend the PUT calls to test by updating each available property - not done due to this currently not working
 - Run tests in parallel to decrease runtime
+- Run Linter only if there are .py files changed in the project
 
 ---
 
