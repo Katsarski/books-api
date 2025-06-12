@@ -1,5 +1,5 @@
 """
-Tests for PUT /authors/{id} with valid, invalid, and non-existent IDs.
+Tests for PUT /authors and /authors/{id} with valid, invalid, and non-existent IDs.
 Includes data validation and content-type handling.
 """
 

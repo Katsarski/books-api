@@ -1,6 +1,5 @@
 """
-Fixtures and helper functions to generate, create, and clean up book test data.
-Includes next available book ID retrieval.
+Helpers and fixtures for creating and cleaning up books test data.
 """
 
 import random

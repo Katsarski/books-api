@@ -1,5 +1,5 @@
 """
-Helpers and fixtures for creating and cleaning up author test data.
+Helpers and fixtures for creating and cleaning up authors test data.
 """
 
 import random
