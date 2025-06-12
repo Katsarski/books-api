@@ -1,8 +1,6 @@
 """
-Tests for POST /books endpoint.
-
-Includes tests for creating books with available and unavailable IDs, invalid data types, 
-missing fields, and invalid content types, along with schema validation and expected error handling.
+Tests for POST /books with valid, invalid, and unavailable IDs.
+Includes tests for data validation and unsupported content types.
 """
 
 import pytest

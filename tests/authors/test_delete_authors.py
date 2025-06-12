@@ -1,5 +1,5 @@
 """
-Tests for DELETE /authors/{id}, covering existing, non-existent, and invalid IDs.
+Tests for DELETE /authors and /authors/{id}, covering existing, non-existent, and invalid IDs.
 """
 
 import pytest

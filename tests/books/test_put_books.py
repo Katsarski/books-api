@@ -1,8 +1,6 @@
 """
-Tests for PUT /books/{id} endpoint.
-
-Includes tests for updating existing books, handling updates on non-existent books, 
-validation of invalid book IDs and invalid data, as well as content-type validation with schema checks.
+Tests for PUT /books and /books/{id} with valid, invalid, and non-existent IDs.
+Includes data validation and content-type handling.
 """
 
 from datetime import datetime

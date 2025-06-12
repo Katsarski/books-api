@@ -1,5 +1,5 @@
 """
-Schema for checking author data format.
+Schema for author object.
 """
 
 authors_object_schema = {

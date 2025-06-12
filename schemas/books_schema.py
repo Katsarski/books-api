@@ -1,5 +1,5 @@
 """
-Schema for checking books data format.
+Schema for books object.
 """
 
 books_object_schema = {

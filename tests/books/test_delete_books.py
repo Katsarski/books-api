@@ -1,7 +1,5 @@
 """
-Tests for DELETE /books/{id} endpoint.
-
-Tests for deleting books, covering existing, non-existent, and invalid IDs.
+Tests for DELETE /books and /books/{id}, covering existing, non-existent, and invalid IDs.
 """
 
 import pytest

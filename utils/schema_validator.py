@@ -1,7 +1,7 @@
 """
-Validation Utilities Module
+Scehma Validation Module
 
-Helpers to validate JSON responses against schemas and replace schema placeholders.
+Helpers to validate JSON responses against schemas.
 """
 
 import json

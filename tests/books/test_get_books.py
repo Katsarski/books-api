@@ -1,8 +1,6 @@
 """
-Tests for GET /books and /books/{id} endpoint.
-
-Includes tests for fetching all books, fetching single books by valid, 
-non-existent, and invalid IDs, with schema validation and expected error handling.
+Tests for GET /books and /books/{id}: all, single (valid, non-existent, invalid IDs).
+Includes handling intermittent failures and schema validation.
 """
 
 import pytest
