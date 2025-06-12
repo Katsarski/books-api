@@ -23,6 +23,9 @@ Further extend the PUT calls to test by updating each available property - not d
 - Abstract away the hardcoded test data into some test data store and make it more diverse
 ---
 
+## Issues
+Various issues are present with the application, mostly related to data persistance - CRUD operations are not reflected after being performed. There is also inconsistencies observed when GET-ing certain endpoints - the data being returned is not always the same, I could not identify any exact pattern to potentially spot the root cause but have observed it multiple times. Tests are marked with a respective tag to indicate intermittent/expected failures.
+
 ## Project Structure
 
 ```
